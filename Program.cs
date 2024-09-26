@@ -68,7 +68,7 @@ internal class Program
                                 Personel.AddPersonel();
                                 break;
                             case 4:
-                                Report.PrintInformation();
+                                Utryckning.PrintUtryckning();
                                 break;
                             case 5:
                                 Console.WriteLine("Du loggas nu ut..");
@@ -94,9 +94,9 @@ internal class Program
         //sätter egenskaper för plats, tidpunkt, poliser
         public string crime;
         public string place;
-        public float time;
+        public string time;
         public string police;
-        public Utryckning(string crime, string place, float time, string police)
+        public Utryckning(string crime, string place, string time, string police)
         {
             this.crime = place;
             this.place = place;
@@ -105,38 +105,32 @@ internal class Program
         }
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("","",0,"");
+            Utryckning addUtryckning = new Utryckning("","","","");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
             Console.WriteLine("Vilket typ av brott gäller det: ");
-            string typeOfCrime = Console.ReadLine().ToLower();
+            string typeOfCrime = Console.ReadLine();
+            addUtryckning.crime = typeOfCrime;
             Console.WriteLine("Vart tog händelsen plats: ");
             string placeOfCrime = Console.ReadLine();
+            addUtryckning.place = placeOfCrime;
             Console.WriteLine("Vilken tid tog händelsen plats: ");
-            float timeOfCrime = float.Parse(Console.ReadLine());
+            string timeOfCrime = Console.ReadLine();
+            addUtryckning.time = timeOfCrime;
             Console.WriteLine("Vilken polis tog hand om fallet: ");
             string policeOfficer = Console.ReadLine();
+            addUtryckning.police = policeOfficer;
+            departure.Add(addUtryckning);
 
-            //kör en if sats tills vidare
-            if(typeOfCrime == "stöld")
+            Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {timeOfCrime} {policeOfficer}");
+        }
+
+        public static void PrintUtryckning()
+        {
+            foreach(Utryckning list in departure)
             {
-                //lägger till stöld i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            if(typeOfCrime == "slagsmål")
-            {
-                //lägger till slagsmål i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            if(typeOfCrime == "trafikbrott")
-            {
-                //lägger till trafikbrott i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            foreach(Utryckning lista in departure)
-            {
-                Console.WriteLine($"Du har lagt till: {addUtryckning.crime} {addUtryckning.place} {addUtryckning.time} {addUtryckning.police}");
+                Console.WriteLine($"{list.crime}{list.place} {list.time} {list.police}");
             }
         }
     }
@@ -220,7 +214,7 @@ internal class Program
             addNewPerson.serviceNumber = number;
             personelList.Add(addNewPerson);
 
-            Console.WriteLine($"Du har lagt till {addNewPerson.firstName} {addNewPerson.lastName} med tjänstenummer: {addNewPerson.serviceNumber}");
+            Console.WriteLine($"Du har lagt till {addFirstName} {addLastName} med tjänstenummer: {number}");
         }
     }
 }
