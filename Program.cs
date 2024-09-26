@@ -111,41 +111,36 @@ internal class Program
     }
     public class Utryckning
     {
-        public static List<Utryckning> departure = new List<Utryckning>();
+         public static List<Utryckning> departure = [];
         //sätter egenskaper för brott, stöld, bråk, trafikbrott
         //sätter egenskaper för plats, tidpunkt, poliser
         public string crime;
         public string place;
-        public string time;
+        public DateTime time;
         public string police;
-        public Utryckning(string crime, string place, string time, string police)
+        public Utryckning(string crime, string place, DateTime time, string police)
         {
-            this.crime = place;
+            this.crime = crime;
             this.place = place;
             this.time = time;
             this.police = police;
         }
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("", "", "", "");
+            Utryckning addUtryckning = new("", "", DateTime.Now, "");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
-            Console.WriteLine("Vilket typ av brott gäller det: ");
-            string typeOfCrime = Console.ReadLine();
-            addUtryckning.crime = typeOfCrime;
-            Console.WriteLine("Vart tog händelsen plats: ");
+            Console.WriteLine("Vilket typ av brott gäller det?");
+            Console.Write("Stöld, Slagsmål, Trafik:  ");
+            string typeOfCrime = Console.ReadLine().ToLower();
+            Console.Write("Vart tog händelsen plats: ");
             string placeOfCrime = Console.ReadLine();
-            addUtryckning.place = placeOfCrime;
-            Console.WriteLine("Vilken tid tog händelsen plats: ");
-            string timeOfCrime = Console.ReadLine();
-            addUtryckning.time = timeOfCrime;
-            Console.WriteLine("Vilken polis tog hand om fallet: ");
+            Console.Write("Utryckande polis tjänstenummer: ");
             string policeOfficer = Console.ReadLine();
-            addUtryckning.police = policeOfficer;
+            addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, DateTime.Now, policeOfficer);
             departure.Add(addUtryckning);
-
-            Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {timeOfCrime} {policeOfficer}");
+            Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {DateTime.Now}");
         }
         public static void PrintUtryckning()
         {
