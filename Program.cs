@@ -14,6 +14,7 @@
      - UTRYCKNINGAR, RAPPORTER, PERSONAL */
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
 
 internal class Program
 {
@@ -37,7 +38,7 @@ internal class Program
                 logInNumber = int.Parse(Console.ReadLine());
                 Console.WriteLine("Ange ditt lösenord: ");
                 logInPassword = int.Parse(Console.ReadLine());
-                Console.Clear();
+                //Console.Clear();
 
                 if (logInNumber == 4)
                 {
@@ -89,48 +90,57 @@ internal class Program
     }
     public class Utryckning
     {
-        public static List<Utryckning> departure = new List<Utryckning>();
+        public static List<Utryckning> departure = [];
         //sätter egenskaper för brott, stöld, bråk, trafikbrott
         //sätter egenskaper för plats, tidpunkt, poliser
         public string crime;
         public string place;
-        public string time;
+        public float time;
         public string police;
-        public Utryckning(string crime, string place, string time, string police)
+        public Utryckning(string crime, string place, float time, string police)
         {
-            this.crime = place;
+            this.crime = crime;
             this.place = place;
             this.time = time;
             this.police = police;
         }
+
+
+
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("","","","");
+            Utryckning addUtryckning = new Utryckning("","",0,"");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
             Console.WriteLine("Vilket typ av brott gäller det: ");
-            string typeOfCrime = Console.ReadLine();
-            addUtryckning.crime = typeOfCrime;
+            string typeOfCrime = Console.ReadLine().ToLower();
             Console.WriteLine("Vart tog händelsen plats: ");
             string placeOfCrime = Console.ReadLine();
-            addUtryckning.place = placeOfCrime;
             Console.WriteLine("Vilken tid tog händelsen plats: ");
-            string timeOfCrime = Console.ReadLine();
-            addUtryckning.time = timeOfCrime;
+            float timeOfCrime = float.Parse(Console.ReadLine());
             Console.WriteLine("Vilken polis tog hand om fallet: ");
             string policeOfficer = Console.ReadLine();
-            addUtryckning.police = policeOfficer;
-            departure.Add(addUtryckning);
 
-            Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {timeOfCrime} {policeOfficer}");
-        }
-
-        public static void PrintUtryckning()
-        {
-            foreach(Utryckning list in departure)
+            //kör en if sats tills vidare
+            if(typeOfCrime == "stöld")
             {
-                Console.WriteLine($"{list.crime}{list.place} {list.time} {list.police}");
+                //lägger till stöld i listan
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
+            }
+            if(typeOfCrime == "slagsmål")
+            {
+                //lägger till slagsmål i listan
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
+            }
+            if(typeOfCrime == "trafikbrott")
+            {
+                //lägger till trafikbrott i listan
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
+            }
+            foreach(Utryckning lista in departure)
+            {
+                Console.WriteLine($"Du har lagt till: {addUtryckning.crime} {addUtryckning.place} {addUtryckning.time} {addUtryckning.police}");
             }
         }
     }
