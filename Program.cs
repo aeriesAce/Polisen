@@ -12,6 +12,7 @@
      Klara och koncisa kommandon
      Snabb och enkel åtkomst till listor och detaljerad information om
      - UTRYCKNINGAR, RAPPORTER, PERSONAL */
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 internal class Program
@@ -67,7 +68,7 @@ internal class Program
                                 Personel.AddPersonel();
                                 break;
                             case 4:
-                                PrintInformation();
+                                Report.PrintInformation();
                                 break;
                             case 5:
                                 Console.WriteLine("Du loggas nu ut..");
@@ -85,70 +86,63 @@ internal class Program
                 Console.WriteLine("Du kan endast mata in siffor. \nVänligen försök igen");
             }
         }
-        static void PrintInformation()
-        {
-            //skriva ut information om utryckningar, rapporter och personal
-            //i informationen ska allt tillsammans skriva ut.
-            //vill få tillgång till alla listorna här. ska väl inte behöva skapa i varje klass?
-            //detta ska upptaderas så vi kan använda denna till olika branscher
-        }
     }
     public class Utryckning
     {
         public static List<Utryckning> departure = new List<Utryckning>();
         //sätter egenskaper för brott, stöld, bråk, trafikbrott
         //sätter egenskaper för plats, tidpunkt, poliser
-        public string theft;
-        public string fight;
-        public string trafficViolation;
+        public string crime;
         public string place;
         public float time;
         public string police;
-        public Utryckning(string theft, string fight, string trafficViolation, string place, float time, string police)
+        public Utryckning(string crime, string place, float time, string police)
         {
-            this.theft = theft;
-            this.fight = fight;
-            this.trafficViolation = trafficViolation;
+            this.crime = place;
             this.place = place;
             this.time = time;
             this.police = police;
         }
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("","","","",0,"");
+            Utryckning addUtryckning = new Utryckning("","",0,"");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
             Console.WriteLine("Vilket typ av brott gäller det: ");
-            string answer = Console.ReadLine().ToLower();
+            string typeOfCrime = Console.ReadLine().ToLower();
             Console.WriteLine("Vart tog händelsen plats: ");
-            answer = Console.ReadLine();
+            string placeOfCrime = Console.ReadLine();
             Console.WriteLine("Vilken tid tog händelsen plats: ");
             float timeOfCrime = float.Parse(Console.ReadLine());
             Console.WriteLine("Vilken polis tog hand om fallet: ");
-            answer = Console.ReadLine();
+            string policeOfficer = Console.ReadLine();
 
             //kör en if sats tills vidare
-            if(answer == "stöld")
+            if(typeOfCrime == "stöld")
             {
                 //lägger till stöld i listan
-                //addUtryckning.Add();
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
             }
-            if(answer == "slagsmål")
+            if(typeOfCrime == "slagsmål")
             {
                 //lägger till slagsmål i listan
-                //addUtryckning.Add();
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
             }
-            if(answer == "trafikbrott")
+            if(typeOfCrime == "trafikbrott")
             {
                 //lägger till trafikbrott i listan
-                //addUtryckning.Add();
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
+            }
+            foreach(Utryckning lista in departure)
+            {
+                Console.WriteLine($"Du har lagt till: {addUtryckning.crime} {addUtryckning.place} {addUtryckning.time} {addUtryckning.police}");
             }
         }
     }
     public class Report
     {
-        public static List<Report> reports = new List<Report>();
+         public static List<Report> reports = new List<Report>();
         //skapar egenskaper för rapportnummer, datum, polisstation, beskrivning
         public int reportNumber;
         public int date;
@@ -181,6 +175,18 @@ internal class Program
             string summary = Console.ReadLine();
             registerReport.description = summary;
             reports.Add(registerReport);
+        }
+        public static void PrintInformation()
+        {
+            //skriva ut information om utryckningar, rapporter och personal
+            //i informationen ska allt tillsammans skriva ut.
+            //vill få tillgång till alla listorna här. ska väl inte behöva skapa i varje klass?
+            //detta ska upptaderas så vi kan använda denna till olika branscher
+            Console.WriteLine("Skriver ut rapporterna");
+            foreach(Report report in reports)
+            {
+                Console.WriteLine($"{report.reportNumber} {report.date} {report.policestation} {report.description}");
+            }
         }
     }
     public class Personel
