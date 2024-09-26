@@ -87,6 +87,27 @@ internal class Program
                 Console.WriteLine("Du kan endast mata in siffor. \nVänligen försök igen");
             }
         }
+        static void PrintAllInformation()
+        {
+            //här vill jag anropa metoderna från dem andra klasserna 
+            //ska få detta att fungera med en inloggning från olika branscher
+            //om listorna är tomma ska detta skrivas ut, tryparse?
+            Console.WriteLine("Vilken lista vill du komma åt?");
+            Console.WriteLine("1. Lista över utryckningar \n2. Lista över rapporter \n3. Lista över personal");
+            int listChoice = int.Parse(Console.ReadLine());
+            if (listChoice == 1)
+            {
+                Utryckning.PrintUtryckning();
+            }
+            if (listChoice == 2)
+            {
+                Report.PrintReport();
+            }
+            if (listChoice == 3)
+            {
+                Personel.PrintPerson();
+            }
+        }
     }
     public class Utryckning
     {
@@ -106,7 +127,7 @@ internal class Program
         }
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("","","","");
+            Utryckning addUtryckning = new Utryckning("", "", "", "");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
@@ -126,18 +147,18 @@ internal class Program
 
             Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {timeOfCrime} {policeOfficer}");
         }
-
         public static void PrintUtryckning()
         {
-            foreach(Utryckning list in departure)
+            foreach (Utryckning list in departure)
             {
-                Console.WriteLine($"{list.crime}{list.place} {list.time} {list.police}");
+                Console.WriteLine($"Brottet som begåtts {list.crime}. Platsen där händelsen inträffade {list.place}. Tiden då brottet begicks{list.time}. Polisen som svarade på utryckningen {list.police}.");
             }
         }
+
     }
     public class Report
     {
-         public static List<Report> reports = new List<Report>();
+        public static List<Report> reports = new List<Report>();
         //skapar egenskaper för rapportnummer, datum, polisstation, beskrivning
         public int reportNumber;
         public int date;
@@ -171,16 +192,16 @@ internal class Program
             registerReport.description = summary;
             reports.Add(registerReport);
         }
-        public static void PrintInformation()
+        public static void PrintReport()
         {
             //skriva ut information om utryckningar, rapporter och personal
             //i informationen ska allt tillsammans skriva ut.
             //vill få tillgång till alla listorna här. ska väl inte behöva skapa i varje klass?
             //detta ska upptaderas så vi kan använda denna till olika branscher
             Console.WriteLine("Skriver ut rapporterna");
-            foreach(Report report in reports)
+            foreach (Report report in reports)
             {
-                Console.WriteLine($"{report.reportNumber} {report.date} {report.policestation} {report.description}");
+                Console.WriteLine($"Rapportnumret {report.reportNumber}. Datum{report.date}. Polistationen som{report.policestation} {report.description}");
             }
         }
     }
@@ -198,31 +219,32 @@ internal class Program
             this.serviceNumber = serviceNumber;
         }
 
-    public static void AddPersonel()
-    {
-        //lägg till personal
-        //detta ska upptaderas så vi kan använda denna till olika branscher
-        Personel addNewPerson = new Personel("", "", 0);
-
-        Console.WriteLine("Den nya anställdas förnamn: ");
-        string addFirstName = Console.ReadLine();
-        addNewPerson.firstName = addFirstName;
-        Console.WriteLine("Efternamn: ");
-        string addLastName = Console.ReadLine();
-        addNewPerson.lastName = addLastName;
-        Console.WriteLine("Tjänstenummer: ");
-        int number = int.Parse(Console.ReadLine());
-        addNewPerson.serviceNumber = number;
-        personelList.Add(addNewPerson);
-
-        Console.WriteLine($"Du har lagt till {addFirstName} {addLastName} med tjänstenummer: {number}");
-    }
-    public static void PrintPerson()
-    {
-        //skriver ut personal
-        foreach (Personel printPerson in personelList)
+        public static void AddPersonel()
         {
-            Console.WriteLine($"Den anställdes namn: {printPerson.firstName} {printPerson.lastName} Den anställdas tjänstenummer: {printPerson.serviceNumber}");
+            //lägg till personal
+            //detta ska upptaderas så vi kan använda denna till olika branscher
+            Personel addNewPerson = new Personel("", "", 0);
+
+            Console.WriteLine("Den nya anställdas förnamn: ");
+            string addFirstName = Console.ReadLine();
+            addNewPerson.firstName = addFirstName;
+            Console.WriteLine("Efternamn: ");
+            string addLastName = Console.ReadLine();
+            addNewPerson.lastName = addLastName;
+            Console.WriteLine("Tjänstenummer: ");
+            int number = int.Parse(Console.ReadLine());
+            addNewPerson.serviceNumber = number;
+            personelList.Add(addNewPerson);
+
+            Console.WriteLine($"Du har lagt till {addFirstName} {addLastName} med tjänstenummer: {number}");
+        }
+        public static void PrintPerson()
+        {
+            //skriver ut personal
+            foreach (Personel printPerson in personelList)
+            {
+                Console.WriteLine($"Den anställdes namn: {printPerson.firstName} {printPerson.lastName} Den anställdas tjänstenummer: {printPerson.serviceNumber}");
+            }
         }
     }
 }
