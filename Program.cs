@@ -95,9 +95,9 @@ internal class Program
         //sätter egenskaper för plats, tidpunkt, poliser
         public string crime;
         public string place;
-        public float time;
+        public DateTime time;
         public string police;
-        public Utryckning(string crime, string place, float time, string police)
+        public Utryckning(string crime, string place, DateTime time, string police)
         {
             this.crime = crime;
             this.place = place;
@@ -109,38 +109,22 @@ internal class Program
 
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new Utryckning("","",0,"");
-            //metod för att registrera utryckningarna
-            //detta ska upptaderas så vi kan använda denna till olika branscher
-            //lägga in null ifall det inte är alla alternativen
-            Console.WriteLine("Vilket typ av brott gäller det: ");
-            string typeOfCrime = Console.ReadLine().ToLower();
-            Console.WriteLine("Vart tog händelsen plats: ");
-            string placeOfCrime = Console.ReadLine();
-            Console.WriteLine("Vilken tid tog händelsen plats: ");
-            float timeOfCrime = float.Parse(Console.ReadLine());
-            Console.WriteLine("Vilken polis tog hand om fallet: ");
-            string policeOfficer = Console.ReadLine();
-
-            //kör en if sats tills vidare
-            if(typeOfCrime == "stöld")
+            while (true)
             {
-                //lägger till stöld i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            if(typeOfCrime == "slagsmål")
-            {
-                //lägger till slagsmål i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            if(typeOfCrime == "trafikbrott")
-            {
-                //lägger till trafikbrott i listan
-                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, timeOfCrime, policeOfficer);
-            }
-            foreach(Utryckning lista in departure)
-            {
-                Console.WriteLine($"Du har lagt till: {addUtryckning.crime} {addUtryckning.place} {addUtryckning.time} {addUtryckning.police}");
+                Utryckning addUtryckning = new ("","",DateTime.Now,"");
+                //metod för att registrera utryckningarna
+                //detta ska upptaderas så vi kan använda denna till olika branscher
+                //lägga in null ifall det inte är alla alternativen
+                Console.WriteLine("Vilket typ av brott gäller det?");
+                Console.Write("Stöld, Slagsmål, Trafik:  ");
+                string typeOfCrime = Console.ReadLine().ToLower();
+                Console.Write("Vart tog händelsen plats: ");
+                string placeOfCrime = Console.ReadLine();
+                Console.Write("Utryckande polis tjänstenummer: ");
+                string policeOfficer = Console.ReadLine();
+                addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, DateAndTime.Now, policeOfficer);
+                departure.Add(addUtryckning);
+                Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {DateAndTime.Now}");
             }
         }
     }
