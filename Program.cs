@@ -12,6 +12,8 @@
      Klara och koncisa kommandon
      Snabb och enkel åtkomst till listor och detaljerad information om
      - UTRYCKNINGAR, RAPPORTER, PERSONAL */
+using System.Security.Cryptography.X509Certificates;
+
 internal class Program
 {
     static void Main(string[] args)
@@ -24,7 +26,6 @@ internal class Program
         //Dem 4 första siffrorna är kopplat till en specifik brancsh.
         while (true)
         {
-            //försöka implementera en try parse här istället??
             try
             {
                 //huvudmenyn där polisen loggar in
@@ -36,20 +37,8 @@ internal class Program
                 Console.WriteLine("Ange ditt lösenord: ");
                 logInPassword = int.Parse(Console.ReadLine());
                 Console.Clear();
-            }
-            catch
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Du kan endast mata in siffor. \nVänligen försök igen");
-            }
-            //tillfälliga villkor, ska jämföra om tjänstenumret och lösenordet är korrekt
-            if (logInNumber == 4)
-            {
-                //skapar listor för personal, rapporter och utryckningar
-                List<Personel> personelList = new List<Personel>();
-                List<Report> reports = new List<Report>();
-                List<Utryckning> departure = new List<Utryckning>();
-                try
+
+                if (logInNumber == 4)
                 {
                     while (true)
                     {
@@ -72,10 +61,10 @@ internal class Program
                                 Utryckning.RegisterUtryckning();
                                 break;
                             case 2:
-                                Report.RegisterReports(reports);
+                                Report.RegisterReports();
                                 break;
                             case 3:
-                                Personel.AddPersonel(personelList);
+                                Personel.AddPersonel();
                                 break;
                             case 4:
                                 PrintInformation();
@@ -88,12 +77,12 @@ internal class Program
                         }
                     }
                 }
-                catch
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du kan endast mata in siffor. \nVänligen försök igen");
-                }
-
+            }
+            //tillfälliga villkor, ska jämföra om tjänstenumret och lösenordet är korrekt
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Du kan endast mata in siffor. \nVänligen försök igen");
             }
         }
         static void PrintInformation()
@@ -102,39 +91,64 @@ internal class Program
             //i informationen ska allt tillsammans skriva ut.
             //vill få tillgång till alla listorna här. ska väl inte behöva skapa i varje klass?
             //detta ska upptaderas så vi kan använda denna till olika branscher
-
         }
     }
     public class Utryckning
     {
+        public static List<Utryckning> departure = new List<Utryckning>();
         //sätter egenskaper för brott, stöld, bråk, trafikbrott
         //sätter egenskaper för plats, tidpunkt, poliser
         public string theft;
         public string fight;
-        public string violation;
+        public string trafficViolation;
         public string place;
         public float time;
         public string police;
-        public Utryckning(string theft, string fight, string violation, string place, float time, string police)
+        public Utryckning(string theft, string fight, string trafficViolation, string place, float time, string police)
         {
             this.theft = theft;
             this.fight = fight;
-            this.violation = violation;
+            this.trafficViolation = trafficViolation;
             this.place = place;
             this.time = time;
             this.police = police;
         }
         public static void RegisterUtryckning()
         {
+            Utryckning addUtryckning = new Utryckning("","","","",0,"");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
-            Console.WriteLine("Vilket typ av brott gäller det?");
+            Console.WriteLine("Vilket typ av brott gäller det: ");
+            string answer = Console.ReadLine().ToLower();
+            Console.WriteLine("Vart tog händelsen plats: ");
+            answer = Console.ReadLine();
+            Console.WriteLine("Vilken tid tog händelsen plats: ");
+            float timeOfCrime = float.Parse(Console.ReadLine());
+            Console.WriteLine("Vilken polis tog hand om fallet: ");
+            answer = Console.ReadLine();
 
+            //kör en if sats tills vidare
+            if(answer == "stöld")
+            {
+                //lägger till stöld i listan
+                //addUtryckning.Add();
+            }
+            if(answer == "slagsmål")
+            {
+                //lägger till slagsmål i listan
+                //addUtryckning.Add();
+            }
+            if(answer == "trafikbrott")
+            {
+                //lägger till trafikbrott i listan
+                //addUtryckning.Add();
+            }
         }
     }
     public class Report
     {
+        public static List<Report> reports = new List<Report>();
         //skapar egenskaper för rapportnummer, datum, polisstation, beskrivning
         public int reportNumber;
         public int date;
@@ -147,9 +161,9 @@ internal class Program
             this.policestation = policestation;
             this.description = description;
         }
-        public static void RegisterReports(List<Report> addReport)
+        public static void RegisterReports()
         {
-            Report registerReport = new Report(0,0,"","");
+            Report registerReport = new Report(0, 0, "", "");
             //metod för att fylla i rapporter
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //kan vi göra det här på ett smidigare sätt?
@@ -166,11 +180,12 @@ internal class Program
             Console.WriteLine("Skriv en kort sammanfattning om fallet: ");
             string summary = Console.ReadLine();
             registerReport.description = summary;
-            addReport.Add(registerReport);    
+            reports.Add(registerReport);
         }
     }
     public class Personel
     {
+        public static List<Personel> personelList = new List<Personel>();
         //skapar egenskaper för polisernas namn, tjänstenummer
         public string firstName;
         public string lastName;
@@ -182,7 +197,7 @@ internal class Program
             this.serviceNumber = serviceNumber;
         }
 
-        public static void AddPersonel(List<Personel> addPerson)
+        public static void AddPersonel()
         {
             //lägg till personal
             //detta ska upptaderas så vi kan använda denna till olika branscher
@@ -197,7 +212,7 @@ internal class Program
             Console.WriteLine("Tjänstenummer: ");
             int number = int.Parse(Console.ReadLine());
             addNewPerson.serviceNumber = number;
-            addPerson.Add(addNewPerson);
+            personelList.Add(addNewPerson);
 
             Console.WriteLine($"Du har lagt till {addNewPerson.firstName} {addNewPerson.lastName} med tjänstenummer: {addNewPerson.serviceNumber}");
         }
