@@ -12,10 +12,6 @@
      Klara och koncisa kommandon
      Snabb och enkel åtkomst till listor och detaljerad information om
      - UTRYCKNINGAR, RAPPORTER, PERSONAL */
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.VisualBasic;
-
 internal class Program
 {
     static void Main(string[] args)
