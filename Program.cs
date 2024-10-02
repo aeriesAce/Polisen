@@ -46,6 +46,8 @@ internal class Program
                     {
                         //"undermenyn" där polisen får skriva rapporter mm
                         //här ska namnet på personen som loggade in stå.
+                        //Lägg till en super admin som kan gå in och ändra precis vad dom vill som är kodat,
+                        //t.ex. lägga till stationer, ändra lösenord, ändra personal info, ändra i rapporter.
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine("------Välkommen admin------");
                         Console.ForegroundColor = ConsoleColor.White;
@@ -202,6 +204,8 @@ internal class Program
     }
     public class Personel
     {
+
+        //lägga till en klass för polis station så att de kan välja vilken station de tillhör och sedan sin personal info.
         public static List<Personel> personelList = new List<Personel>();
         //skapar egenskaper för polisernas namn, tjänstenummer
         public string firstName;
