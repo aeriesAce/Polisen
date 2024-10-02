@@ -19,7 +19,6 @@ namespace Polisen
 
         public static void RegisterUtryckning()
         {
-            Utryckning addUtryckning = new("", "", DateTime.Now, "");
             //metod för att registrera utryckningarna
             //detta ska upptaderas så vi kan använda denna till olika branscher
             //lägga in null ifall det inte är alla alternativen
@@ -30,7 +29,7 @@ namespace Polisen
             string placeOfCrime = Console.ReadLine();
             Console.Write("Utryckande polis tjänstenummer: ");
             string policeOfficer = Console.ReadLine();
-            addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, DateTime.Now, policeOfficer);
+            Utryckning addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, DateTime.Now, policeOfficer);
             departure.Add(addUtryckning);
             Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {DateTime.Now}");
         }

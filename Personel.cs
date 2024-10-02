@@ -4,7 +4,7 @@ namespace Polisen
     {
         //lägga till en klass för polis station så att de kan välja vilken station de tillhör och sedan sin personal info.
         //skapar egenskaper för polisernas namn, tjänstenummer
-        public List<Personel> personelList = new List<Personel>();
+        public List<Personel> personelList = [];
         public string firstName;
         public string lastName;
         public int serviceNumber;
@@ -25,7 +25,7 @@ namespace Polisen
             string lastName = Console.ReadLine();
             Console.WriteLine("Tjänstenummer: ");
             int serviceNumber = int.Parse(Console.ReadLine());
-            Personel addNewPerson = new Personel(this.firstName, this.lastName, this.serviceNumber);
+            Personel addNewPerson = new Personel(firstName, lastName, serviceNumber);
             personelList.Add(addNewPerson);
 
             Console.WriteLine($"Du har lagt till {firstName} {lastName} med tjänstenummer: {serviceNumber}");

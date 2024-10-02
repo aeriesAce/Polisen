@@ -3,12 +3,12 @@ namespace Polisen
     public class Report
     {
         //skapar egenskaper för rapportnummer, datum, polisstation, beskrivning
-        public static List<Report> reports = new List<Report>();
+        public static List<Report> reports = [];
         public int reportNumber;
-        public int date;
+        public DateTime date;
         public string policestation;
         public string description;
-        public Report(int reportNumber, int date, string policestation, string description)
+        public Report(int reportNumber, DateTime date, string policestation, string description)
         {
             this.reportNumber = reportNumber;
             this.date = date;
@@ -18,24 +18,19 @@ namespace Polisen
 
         public static void RegisterReport()
         {
-            Report registerReport = new Report(0, 0, "", "");
             //metod för att fylla i rapporter
             //detta ska upptaderas så vi kan använda denna till olika branscher
-            //kan vi göra det här på ett smidigare sätt?
             Console.WriteLine("Fyll i din rapport för utryckningen: ");
             Console.WriteLine("Rapportnumret: ");
             int number = int.Parse(Console.ReadLine());
-            registerReport.reportNumber = number;
-            Console.WriteLine("Dagens datum: ");
-            int todaysDate = int.Parse(Console.ReadLine());
-            registerReport.date = todaysDate;
             Console.WriteLine("Polisstationen som tog emot ärdendet: ");
             string policeStation = Console.ReadLine();
-            registerReport.policestation = policeStation;
             Console.WriteLine("Skriv en kort sammanfattning om fallet: ");
             string summary = Console.ReadLine();
-            registerReport.description = summary;
+            Report registerReport = new Report(number, DateTime.Now, policeStation, summary);
             reports.Add(registerReport);
+
+            Console.WriteLine($"Du har lagt till en rapport med rapportnummer {number}");
         }
 
         public static void PrintReport()
