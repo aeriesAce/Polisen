@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Polisen
 {
     /*1. Registrering av utryckningar.
@@ -33,8 +35,10 @@ namespace Polisen
         {
             Personel personel = new Personel("Pelle", "Olsson", 4477);
             Personel personel2 = new Personel("Saga", "Johansson", 5511);
+            Personel personel3 = new Personel("Rickard", "Edberg", 6969);
             Personel.personelList.Add(personel);
             Personel.personelList.Add(personel2);
+            Personel.personelList.Add(personel3);
             //istället för att skriva in personal ska stationerna vi har lagt in användas.
             Report reports = new Report(10, DateTime.Now, "Stockholm Polisstation", "Våldsam man vid kvinnornas underkläder");
             Report reports2 = new Report(10, DateTime.Now, "Malmö Centrala", "Kvinna hotade man utanför Hemköp.");
@@ -132,5 +136,28 @@ namespace Polisen
                 Personel.PrintPerson();
             }
         }
+        //ifall vi behöver den, behöver skrivas om så att den passar alla listor isf
+        /*static int BinarySearch(int search)
+        {
+            int left = 0;
+            int right = Personel.personelList.Count - 1;
+            while (left <= right)
+            {
+                int middle = (left + right) / 2;
+                if (Personel.personelList.Count == 0)
+                {
+                    return middle;
+                }
+                else if (Personel.personelList.Count < 0)
+                {
+                    left = middle + 1;
+                }
+                else
+                {
+                    right = middle - 1;
+                }
+            }
+            return -1;
+        }*/
     }
 }

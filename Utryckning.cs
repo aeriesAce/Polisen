@@ -24,6 +24,24 @@ namespace Polisen
             //lägga in fel ifall användaren råkar lämna en ruta blank
             //lägga in så att man kan välja polis som faktiskt finns i listan och en kontroll ifall polisen inte existerar.
            while(true)
+           {
+             Console.WriteLine("Vilket typ av brott gäller det?");
+            Console.Write("Stöld, Slagsmål, Trafikstörning:  ");
+            string typeOfCrime = Console.ReadLine().ToLower();
+            Console.Write("Vart tog händelsen plats: ");
+            string placeOfCrime = Console.ReadLine();
+            Personel.PrintPerson();
+            Console.Write("Utryckande polis tjänstenummer: ");
+            int policeOfficer = int.Parse(Console.ReadLine());
+            Utryckning addUtryckning = new Utryckning(typeOfCrime, placeOfCrime, DateTime.Now, policeOfficer);
+            departureList.Add(addUtryckning);
+            Console.WriteLine($"Du har lagt till: {typeOfCrime} {placeOfCrime} {DateTime.Now}");
+
+            if(policeOfficer != Personel.personelList.Count)
+            {
+                Console.WriteLine("Det finns ingen personal med det utryckningsnumret.");
+            }
+           }
         }
         public static void PrintUtryckning()
         {
