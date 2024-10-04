@@ -3,7 +3,7 @@ namespace Polisen
     public class Report
     {
         //skapar egenskaper för rapportnummer, datum, polisstation, beskrivning
-        public static List<Report> reports = [];
+        public static List<Report> reportList = new List<Report>();
         public int reportNumber;
         public DateTime date;
         public string policestation;
@@ -16,10 +16,10 @@ namespace Polisen
             this.description = description;
         }
 
-        public static void RegisterReport()
+        public void RegisterReport()
         {
             //metod för att fylla i rapporter
-            //detta ska upptaderas så vi kan använda denna till olika branscher
+            //detta ska upptaderas så vi kan använda denna till olika stationer
             Console.WriteLine("Fyll i din rapport för utryckningen: ");
             Console.WriteLine("Rapportnumret: ");
             int number = int.Parse(Console.ReadLine());
@@ -28,7 +28,7 @@ namespace Polisen
             Console.WriteLine("Skriv en kort sammanfattning om fallet: ");
             string summary = Console.ReadLine();
             Report registerReport = new Report(number, DateTime.Now, policeStation, summary);
-            reports.Add(registerReport);
+            reportList.Add(registerReport);
 
             Console.WriteLine($"Du har lagt till en rapport med rapportnummer {number}");
         }
@@ -38,11 +38,11 @@ namespace Polisen
             //skriva ut information om utryckningar, rapporter och personal
             //i informationen ska allt tillsammans skriva ut.
             //vill få tillgång till alla listorna här. ska väl inte behöva skapa i varje klass?
-            //detta ska upptaderas så vi kan använda denna till olika branscher
+            //detta ska upptaderas så vi kan använda denna till olika stationer
             Console.WriteLine("Skriver ut rapporterna");
-            foreach (Report report in reports)
+            foreach (Report report in reportList)
             {
-                Console.WriteLine($"Rapportnumret {report.reportNumber}. Datum{report.date}. Polistationen som{report.policestation} {report.description}");
+                Console.WriteLine($"Rapportnummer: {report.reportNumber}. Datum:{report.date}. Polistationen som tog emot ärendet: {report.policestation}, {report.description}");
             }
         }
     }

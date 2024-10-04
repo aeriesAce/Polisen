@@ -31,23 +31,35 @@ namespace Polisen
     {
         static void Main(string[] args)
         {
-            Personel personel = new Personel("", "", 0);
+            Personel personel = new Personel("Pelle", "Olsson", 4477);
+            Personel personel2 = new Personel("Saga", "Johansson", 5511);
+            Personel.personelList.Add(personel);
+            Personel.personelList.Add(personel2);
+            //istället för att skriva in personal ska stationerna vi har lagt in användas.
+            Report reports = new Report(10, DateTime.Now, "Stockholm Polisstation", "Våldsam man vid kvinnornas underkläder");
+            Report reports2 = new Report(10, DateTime.Now, "Malmö Centrala", "Kvinna hotade man utanför Hemköp.");
+            Report.reportList.Add(reports);
+            Report.reportList.Add(reports2);
+            Utryckning utryckning = new Utryckning("Stöld", "Kristianstad", DateTime.Now, 4488);
+            Utryckning utryckning2 = new Utryckning("Slagsmål", "Uddevalla", DateTime.Now, 8877);
+            Utryckning.departureList.Add(utryckning);
+            Utryckning.departureList.Add(utryckning2);
             int logInNumber = 0;
             int logInPassword = 0;
 
+            //Rickard jag skrev om menyn, istället för att ha en massa while loopar mm så la jag allt i samma.
+            //huvudmenyn där polisen loggar in
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("------Huvudmenyn------");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Ange ditt Tjänstenummer: ");
+            logInNumber = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ange ditt lösenord: ");
+            logInPassword = int.Parse(Console.ReadLine());
             while (true)
             {
                 try
                 {
-                    //Rickard jag skrev om menyn, istället för att ha en massa while loopar mm så la jag allt i samma.
-                    //huvudmenyn där polisen loggar in
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("------Huvudmenyn------");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Ange ditt Tjänstenummer: ");
-                    logInNumber = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Ange ditt lösenord: ");
-                    logInPassword = int.Parse(Console.ReadLine());
                     //Console.Clear();  Den stoppar debuggingen, tar tillbaka när vi inte behöver längre
                     if (logInNumber == 4)
                     {
@@ -66,10 +78,10 @@ namespace Polisen
                         switch (userChoice)
                         {
                             case 1:
-                                Utryckning.RegisterUtryckning();
+                                utryckning.RegisterUtryckning();
                                 break;
                             case 2:
-                                Report.RegisterReport();
+                                reports.RegisterReport();
                                 break;
                             case 3:
                                 personel.AddPersonel();
@@ -102,7 +114,7 @@ namespace Polisen
         static void PrintAllInformation()
         {
             //här vill jag anropa metoderna från dem andra klasserna 
-            //ska få detta att fungera med en inloggning från olika branscher
+            //ska få detta att fungera med en inloggning från olika stationer
             //om listorna är tomma ska detta skrivas ut, tryparse?
             Console.WriteLine("Vilken lista vill du komma åt?");
             Console.WriteLine("1. Lista över utryckningar \n2. Lista över rapporter \n3. Lista över personal");
@@ -117,7 +129,7 @@ namespace Polisen
             }
             if (listChoice == 3)
             {
-                //Personel.PrintPerson();
+                Personel.PrintPerson();
             }
         }
     }
